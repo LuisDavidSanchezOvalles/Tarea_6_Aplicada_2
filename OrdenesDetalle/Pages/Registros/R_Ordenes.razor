@@ -83,11 +83,11 @@
                         <table class="table table-striped">
                             <thead class="thead-light">
                                 <tr>
-                                    <th>Id</th>
-                                    <th>Orden Id</th>
                                     <th>Producto Id</th>
+                                    <th>Descripción</th>
                                     <th>Cantidad</th>
                                     <th>Costo</th>
+                                    <th>Importe</th>
                                 </tr>
                             </thead>
                             @*Asignacion de Datos*@
@@ -95,11 +95,11 @@
                                 @foreach (var item in orden.OrdenDetalle)
                                 {
                                     <tr>
-                                        <td>@item.OrdenDetalleId</td>
-                                        <td>@item.OrdenId</td>
                                         <td>@item.ProductoId</td>
+                                        <td>@EncontrarDescripcion(item)</td>
                                         <td>@item.Cantidad</td>
                                         <td>@item.Costo</td>
+                                        <td>@(item.Costo * item.Cantidad)</td>
                                         <td><button type="button" class="btn btn-outline-danger" @onclick="(() => EliminarOrdenDetalle(item))"> Remover</button></td>
                                     </tr>
                                 }
@@ -173,7 +173,15 @@
         CantidadColocada = 0;
         ProductoSeleccionado = 0;
         CostoEncontrado = 0;
+    }
 
+    private string EncontrarDescripcion(OrdenesDetalle detalle)
+    {
+        string Descripcion = null;
+        Productos p = ProductosBLL.Buscar(detalle.ProductoId);
+
+        Descripcion = p.Descripcion;
+        return Descripcion;
     }
 
     private void EncontrarCosto()
