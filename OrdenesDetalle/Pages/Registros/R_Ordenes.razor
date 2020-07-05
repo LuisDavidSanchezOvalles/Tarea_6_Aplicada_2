@@ -96,7 +96,7 @@
                                 {
                                     <tr>
                                         <td>@item.ProductoId</td>
-                                        <td>@EncontrarDescripcion(item)</td>
+                                        <td>@EncontrarDescripcion(item.ProductoId)</td>
                                         <td>@item.Cantidad</td>
                                         <td>@item.Costo</td>
                                         <td>@(item.Costo * item.Cantidad)</td>
@@ -175,10 +175,10 @@
         CostoEncontrado = 0;
     }
 
-    private string EncontrarDescripcion(OrdenesDetalle detalle)
+    private string EncontrarDescripcion(int id)
     {
         string Descripcion = null;
-        Productos p = ProductosBLL.Buscar(detalle.ProductoId);
+        Productos p = ProductosBLL.Buscar(id);
 
         Descripcion = p.Descripcion;
         return Descripcion;
